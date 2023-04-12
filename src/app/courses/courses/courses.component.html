@@ -26,14 +26,14 @@
           <!-- actions Column -->
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Ações </th>
-           <mat-cell *matCellDef="let course">
-           <button mat-icon-button color="accent" aria-label="Editar Curso">
+           <td mat-cell *matCellDef="let course">
+            <button mat-icon-button color="accent" aria-label="Editar Curso">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" aria-label="Remover Curso">
               <mat-icon>delete</mat-icon>
             </button>
-           </mat-cell>
+           </td>
           </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
