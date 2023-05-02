@@ -1,5 +1,5 @@
-import { CoursesService } from "./../services/courses.service";
-import { Course } from './../model/courses';
+import { CoursesService } from "../../services/courses.service";
+import { Course } from '../../model/courses';
 import { Component} from '@angular/core';
 import {catchError, Observable, of} from 'rxjs';
 import { MatDialog } from "@angular/material/dialog";
@@ -14,7 +14,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class CoursesComponent{
 
   courses$: Observable<Course[]>;
-  displayedColumns = ['name','category','actions'];
 
   constructor(private CoursesService: CoursesService,
               public dialog: MatDialog,
@@ -37,5 +36,9 @@ export class CoursesComponent{
 
   onAdd(): void{
     this.router.navigate(['new'], {relativeTo: this.route} );
+  }
+
+  onEdit(course: Course){
+    this.router.navigate(['edit', course._id], {relativeTo: this.route} );
   }
 }

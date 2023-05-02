@@ -1,0 +1,51 @@
+
+mat-toolbar{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 30px;
+  }
+
+  .add{
+    background-color: rgba(7, 199, 252, 0.803);
+  }
+
+.mat-column-name {
+  padding-right: 24px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.mat-column-category {
+  text-align: left;
+  font-size: 16px;
+}
+
+.mat-column-actions {
+  flex: 0 0 105px;
+  text-align: center;
+  justify-content: center;
+  padding-right: 25px;
+  font-size: 16px;
+}
+
+
+@media screen and (max-width: 434px) {
+
+.mat-column-actions {
+    text-align: center;
+    justify-content: center;
+     font-size: 15px;
+}
+
+.mat-column-name {
+text-align: left;
+padding-left: 15px;
+padding-right: 5px;
+font-size: 15px;
+}
+
+.mat-column-category {
+text-align: left;
+font-size: 15px;
+}
+}
