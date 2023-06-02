@@ -2,7 +2,8 @@
 <mat-card-content>
   <app-courses-list *ngIf="courses$ | async as courses; else loading" [courses]="courses"
   (add)="onAdd()"
-  (edit)="onEdit($event)">
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)">
 </app-courses-list>
   </mat-card-content>
   <ng-template #loading>

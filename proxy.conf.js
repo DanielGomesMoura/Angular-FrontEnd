@@ -1,7 +1,7 @@
 const PROXY_CONFIG = [
   {
     context: ['/api'],
-    target: 'http://localhost:8080/',
+    target: 'http://back-end-projeto-springboot-production.up.railway.app',
     secure: false,
     loglevel: 'debug',
   }

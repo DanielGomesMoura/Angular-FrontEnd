@@ -1,10 +1,12 @@
-import { CoursesService } from "../../services/courses.service";
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, Observable, of } from 'rxjs';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+
 import { Course } from '../../model/courses';
-import { Component} from '@angular/core';
-import {catchError, Observable, of} from 'rxjs';
-import { MatDialog } from "@angular/material/dialog";
-import { ErrorDialogComponent } from "src/app/shared/components/error-dialog/error-dialog.component";
-import { ActivatedRoute, Router } from "@angular/router";
+import { CoursesService } from './../../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -13,13 +15,24 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class CoursesComponent{
 
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> | null = null;
 
   constructor(private CoursesService: CoursesService,
               public dialog: MatDialog,
               private router: Router,
-              private route: ActivatedRoute ){
+              private route: ActivatedRoute,
+              private snackbar: MatSnackBar ){
 
+   this.reload();
+  }
+
+  onError(errorMsg: String) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: errorMsg
+    });
+  }
+
+  reload(){
     this.courses$ = this.CoursesService.list()
     .pipe(
       catchError(error => {
@@ -28,11 +41,6 @@ export class CoursesComponent{
       })
     );
   }
-  onError(errorMsg: String) {
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
-    });
-  }
 
   onAdd(): void{
     this.router.navigate(['new'], {relativeTo: this.route} );
@@ -40,5 +48,19 @@ export class CoursesComponent{
 
   onEdit(course: Course){
     this.router.navigate(['edit', course._id], {relativeTo: this.route} );
+  }
+
+  onDelete(course: Course){
+    this.CoursesService.Delete(course._id).subscribe(
+      () => {
+        this.reload();
+        this.snackbar.open("Curso removido com sucesso",'x',{
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      },
+      () => this.onError('Erro ao tentar remover o curso')
+    );
   }
 }
